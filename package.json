@@ -2,20 +2,26 @@
   "name": "growth",
   "version": "0.0.1",
   "description": "Growth calculation/classification, based on WHO recomendations.",
-  "tags": ["growth", "who", "bmi", "anthropometry"],
+  "tags": [
+    "growth",
+    "who",
+    "bmi",
+    "anthropometry"
+  ],
   "author": "Joao Paulo Dubas <joao.dubas@gmail.com>",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://repo.aval.io/growth.git"
   },
   "dependencies": {
-    "nstore": "0.5.x",
     "hiredis": "0.1.x",
     "redis": "0.8.x"
   },
   "devDependencies": {
-    "jasmine-node": "1.5.x",
-    "jasmine-phantom-node": "0.2.x"
+    "jasmine-node": "1.5.x"
+  },
+  "script": {
+    "test": "node ./tests/runner.js -v -c'"
   },
   "engine": "node >= 0.8.1"
 }
