@@ -1,12 +1,13 @@
+#!/usr/bin/env node
 var fs = require('fs'),
     path = require('path'),
-    parser = require('./stream.js'),
-    converter = require('./adapter.js');
+    parser = require('../lib/lms/stream.js'),
+    converter = require('../lib/lms/adapter.js');
 
 var filenames = {
   child: {
-    localdir: path.join(__dirname, 'db', 'bmi-child'),
-    todir: path.join(__dirname, 'db'),
+    localdir: path.join(__dirname, '..', 'lib', 'lms', 'db', 'bmi-child'),
+    todir: path.join(__dirname, '..', 'lib', 'lms', 'db'),
     files: [
       {
         from: 'lhfa_boys_p_exp',
@@ -75,8 +76,8 @@ var filenames = {
     ]
   },
   young: {
-    localdir: path.join(__dirname, 'db', 'bmi-young'),
-    todir: path.join(__dirname, 'db'),
+    localdir: path.join(__dirname, '..', 'lib', 'lms', 'db', 'bmi-young'),
+    todir: path.join(__dirname, '..', 'lib', 'lms', 'db'),
     files: [
       {
         from: 'bmi_boys_perc_WHO2007_exp',
