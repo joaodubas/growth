@@ -16,8 +16,11 @@
   "devDependencies": {
     "jasmine-node": "1.5.x"
   },
+  "bin": {
+    "bmiload": "./bin/bmiload.js"
+  },
   "script": {
     "test": "node ./tests/runner.js -v -c'"
   },
-  "engine": "node >= 0.8.1"
+  "engine": "node >= 0.10.0"
 }
