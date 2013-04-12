@@ -13,10 +13,6 @@
     "type": "git",
     "url": "https://repo.aval.io/growth.git"
   },
-  "dependencies": {
-    "hiredis": "0.1.x",
-    "redis": "0.8.x"
-  },
   "devDependencies": {
     "jasmine-node": "1.5.x"
   },
