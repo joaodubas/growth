@@ -1,3 +1,4 @@
 # Directory
 node_modules
 static
+lib/lms/db/*.json
