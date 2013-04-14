@@ -1,7 +1,9 @@
 var mockstream = require('../helper/stream.js');
 
 var calc = require('../../lib/lms/calc.js'),
-    parser = require('../../lib/lms/stream.js');
+    parser = require('../../lib/lms/stream.js'),
+    transformer = require('../../lib/lms/adapter.js'),
+    constants = require('../../lib/lms/constants.js');
 
 describe('BoxCox functionality', function () {
   describe('Conversions between z-score and measure', function () {
@@ -71,35 +73,40 @@ describe('BoxCox functionality', function () {
     });
   });
 
-  describe('Data process stream', function () {
-    describe('Parse data available in WHO files', function () {
-      var data = [
-        {
-          age: 91,
-          l: 0.3933,
-          m: 13.4779,
-          s: 0.07474,
-          p01: 10.579
-        },
-        {
-          age: 92,
-          l: 0.3916,
-          m: 13.49,
-          s: 0.07476,
-          p01: 10.589
-        }
-      ];
-
-      function toSource(data) {
-        var source = data.map(function (hash) {
-          return Object.keys(hash).map(function (key) {
-            return String(hash[key]);
-          }).join('\t') + '\n';
-        });
-        source.unshift(Object.keys(data[0]).join('\t') + '\n');
-        return source;
+  describe('Data processing', function () {
+    var data = [
+      {
+        age: 91,
+        l: 0.3933,
+        m: 13.4779,
+        s: 0.07474,
+        p01: 10.579
+      },
+      {
+        age: 92,
+        l: 0.3916,
+        m: 13.49,
+        s: 0.07476,
+        p01: 10.589
       }
+    ];
+    var datameta = {
+      key: 'age',
+      measure: constants.CIRCUNFERENCE,
+      by: constants.AGEMONTH
+    }
 
+    function toSource(data) {
+      var source = data.map(function (hash) {
+        return Object.keys(hash).map(function (key) {
+          return String(hash[key]);
+        }).join('\t') + '\n';
+      });
+      source.unshift(Object.keys(data[0]).join('\t') + '\n');
+      return source;
+    }
+
+    describe('Data parse stream', function () {
       it('Put data in first line as keys in dict', function (done) {
         var reader = new mockstream.MockReader({
           source: toSource(data.slice(0, 1))
@@ -156,6 +163,51 @@ describe('BoxCox functionality', function () {
         });
 
         reader.pipe(lmsparser).pipe(interceptor);
+      });
+    });
+
+    describe('Data transform stream', function () {
+      it('Convert data into proper format', function (done) {
+        var reader = new mockstream.MockReader({
+          source: data.map(JSON.stringify)
+        });
+        var interceptor = new mockstream.MockTransformer();
+        var converter = new transformer.MemoryStream(datameta);
+        var expectation = {
+          meta: {
+            measure: datameta.measure,
+            by: datameta.by
+          },
+          xcoord: {
+            91: {
+              l: 0.3933,
+              m: 13.4779,
+              s: 0.07474
+            },
+            92: {
+              l: 0.3916,
+              m: 13.49,
+              s: 0.07476
+            }
+          },
+          percentile: [
+            {
+              xcoord: 91,
+              p01: 10.579
+            },
+            {
+              xcoord: 92,
+              p01: 10.589
+            }
+          ]
+        }
+
+        interceptor.on('finish', function () {
+          expect(interceptor._accum[0]).toEqual(JSON.stringify(expectation));
+          done();
+        });
+
+        reader.pipe(converter).pipe(interceptor);
       });
     });
   });
