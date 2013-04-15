@@ -14,7 +14,8 @@
     "url": "https://repo.aval.io/growth.git"
   },
   "devDependencies": {
-    "jasmine-node": "1.5.x"
+    "mocha": "1.9.x",
+    "expect.js": "0.2.x"
   },
   "bin": {
     "bmiload": "./bin/bmiload.js"
