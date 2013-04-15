@@ -1,5 +1,5 @@
 var expect = require('expect.js');
-var age = require('../../lib/age');
+var age = require('../lib/age');
 
 describe('Age manipulation', function () {
   var doa = new Date(2013, 11, 15),

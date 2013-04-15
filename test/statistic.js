@@ -1,5 +1,5 @@
 var expect = require('expect.js');
-var snd = require('../../lib/statistic');
+var snd = require('../lib/statistic');
 
 describe('Calculations over the standard normal distribution', function () {
   function to_fixed(value, decimal) {

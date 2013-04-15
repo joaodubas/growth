@@ -1,10 +1,10 @@
 var expect = require('expect.js');
-var mockstream = require('../helper/stream.js');
+var mockstream = require('./helper/stream.js');
 
-var calc = require('../../lib/lms/calc.js'),
-    parser = require('../../lib/lms/stream.js'),
-    transformer = require('../../lib/lms/adapter.js'),
-    constants = require('../../lib/lms/constants.js');
+var calc = require('../lib/lms/calc.js'),
+    parser = require('../lib/lms/stream.js'),
+    transformer = require('../lib/lms/adapter.js'),
+    constants = require('../lib/lms/constants.js');
 
 describe('BoxCox functionality', function () {
   describe('Conversions between z-score and measure', function () {
