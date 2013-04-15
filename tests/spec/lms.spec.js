@@ -1,3 +1,4 @@
+var expect = require('expect.js');
 var mockstream = require('../helper/stream.js');
 
 var calc = require('../../lib/lms/calc.js'),
@@ -18,7 +19,7 @@ describe('BoxCox functionality', function () {
             measure: 19,
             lms: {power: -1.6318, median: 16.0490, cv: 0.10038}
         };
-        expect(to_fixed(calc.zscore(options), 2)).toEqual(1.47);
+        expect(to_fixed(calc.zscore(options), 2)).to.equal(1.47);
       });
 
       it('Get a fixed z-score for values greater than +3', function () {
@@ -26,7 +27,7 @@ describe('BoxCox functionality', function () {
             measure: 30,
             lms: {power: -1.7862, median: 16.9392, cv: 0.11070}
         };
-        expect(to_fixed(calc.zscore(options), 2)).toEqual(3.35);
+        expect(to_fixed(calc.zscore(options), 2)).to.equal(3.35);
       });
 
       it('Get a fixed z-score for values less than -3', function () {
@@ -34,7 +35,7 @@ describe('BoxCox functionality', function () {
             measure: 14,
             lms: {power: -1.3529, median: 20.4951, cv: 0.12579}
         };
-        expect(to_fixed(calc.zscore(options), 2)).toEqual(-3.79);
+        expect(to_fixed(calc.zscore(options), 2)).to.equal(-3.79);
       });
     });
 
@@ -44,7 +45,7 @@ describe('BoxCox functionality', function () {
             zscore: 1.47,
             lms: {power: -1.6318, median: 16.0490, cv: 0.10038}
         };
-        expect(to_fixed(calc.measure(options), 0)).toEqual(19);
+        expect(to_fixed(calc.measure(options), 0)).to.equal(19);
       });
 
       it('Raise error for z-score greater than +3', function () {
@@ -54,8 +55,8 @@ describe('BoxCox functionality', function () {
         };
         expect(function () {
           calc.measure(options);
-        }).toThrow(
-          new Error('Z-score must be -3 <= z <= +3.')
+        }).to.throwException(
+          'Z-score must be -3 <= z <= +3.'
         );
       });
 
@@ -66,8 +67,8 @@ describe('BoxCox functionality', function () {
         };
         expect(function () {
           calc.measure(options);
-        }).toThrow(
-          new Error('Z-score must be -3 <= z <= +3.')
+        }).to.throwException(
+          'Z-score must be -3 <= z <= +3.'
         );
       });
     });
@@ -117,8 +118,8 @@ describe('BoxCox functionality', function () {
         interceptor.on('finish', function () {
           var parsed = JSON.parse(interceptor._accum[0]);
           expect(
-            Object.keys(parsed)
-          ).toEqual(
+            parsed
+          ).to.have.keys(
             Object.keys(data[0])
           );
           done();
@@ -138,7 +139,7 @@ describe('BoxCox functionality', function () {
           var parsed = JSON.parse(interceptor._accum[0]);
           expect(
             Object.keys(parsed).map(function (key) { return parsed[key]; })
-          ).toEqual(
+          ).to.eql(
             Object.keys(data[0]).map(function (key) { return data[0][key]; })
           );
           done();
@@ -156,7 +157,7 @@ describe('BoxCox functionality', function () {
         var counter = 0;
 
         interceptor.on('readable', function () {
-          expect(interceptor.read()).toEqual(JSON.stringify(data[counter++]));
+          expect(interceptor.read()).to.equal(JSON.stringify(data[counter++]));
           if (counter === data.length) {
             done();
           }
@@ -203,7 +204,7 @@ describe('BoxCox functionality', function () {
         }
 
         interceptor.on('finish', function () {
-          expect(interceptor._accum[0]).toEqual(JSON.stringify(expectation));
+          expect(interceptor._accum[0]).to.equal(JSON.stringify(expectation));
           done();
         });
 

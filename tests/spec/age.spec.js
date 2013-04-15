@@ -1,3 +1,4 @@
+var expect = require('expect.js');
 var age = require('../../lib/age');
 
 describe('Age manipulation', function () {
@@ -10,14 +11,14 @@ describe('Age manipulation', function () {
   }
 
   it('Should get proper age in days', function () {
-    expect(to_fixed(age.indays(doa, dob), 0)).toEqual(12784);
+    expect(to_fixed(age.indays(doa, dob), 0)).to.equal(12784);
   });
 
   it('Should get proper age in months', function () {
-    expect(to_fixed(age.inmonths(doa, dob), 0)).toEqual(420);
+    expect(to_fixed(age.inmonths(doa, dob), 0)).to.equal(420);
   });
 
   it('Should get proper age in years', function () {
-    expect(to_fixed(age.inyears(doa, dob), 0)).toEqual(35);
+    expect(to_fixed(age.inyears(doa, dob), 0)).to.equal(35);
   });
 });

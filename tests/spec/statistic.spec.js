@@ -1,3 +1,4 @@
+var expect = require('expect.js');
 var snd = require('../../lib/statistic');
 
 describe('Calculations over the standard normal distribution', function () {
@@ -12,19 +13,19 @@ describe('Calculations over the standard normal distribution', function () {
 
   it('Should calculate proper pdf function', function () {
     zscores.forEach(function (z, index) {
-      expect(to_fixed(snd.pdf(z))).toEqual(bipvalues[index]);
+      expect(to_fixed(snd.pdf(z))).to.equal(bipvalues[index]);
     });
   });
 
   it('Should calculate proper cdf function', function () {
     zscores.forEach(function (z, index) {
-      expect(to_fixed(snd.cdf(z))).toEqual(unipvalues[index]);
+      expect(to_fixed(snd.cdf(z))).to.equal(unipvalues[index]);
     });
   });
 
   it('Should calculate proper inverse for cdf function', function () {
     unipvalues.forEach(function (p, index) {
-      expect(to_fixed(snd.icdf(p), 0)).toEqual(zscores[index]);
+      expect(to_fixed(snd.icdf(p), 0)).to.equal(zscores[index]);
     });
   });
 });
