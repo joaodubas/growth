@@ -1,10 +1,10 @@
 var expect = require('expect.js');
 var mockstream = require('./helper/stream.js');
 
-var calc = require('../lib/lms/calc.js'),
-    parser = require('../lib/lms/stream.js'),
-    transformer = require('../lib/lms/adapter.js'),
-    constants = require('../lib/lms/constants.js');
+var calc = require('../lib/lms/calc.js');
+var parser = require('../lib/lms/stream.js');
+var transformer = require('../lib/lms/adapter.js');
+var constants = require('../lib/lms/constants.js');
 
 describe('BoxCox functionality', function () {
   describe('Conversions between z-score and measure', function () {
@@ -128,7 +128,7 @@ describe('BoxCox functionality', function () {
         reader.pipe(lmsparser).pipe(interceptor);
       });
 
-      it('Put data as values in dict', function (done) {
+      it('Put data in second line as values in dict', function (done) {
         var reader = new mockstream.MockReader({
           source: toSource(data.slice(0, 1))
         });
@@ -168,12 +168,75 @@ describe('BoxCox functionality', function () {
     });
 
     describe('Data transform stream', function () {
-      it('Convert data into proper format', function (done) {
-        var reader = new mockstream.MockReader({
+      var reader = null;
+      var interceptor = null;
+      var converter = null;
+
+      beforeEach(function () {
+        reader = new mockstream.MockReader({
           source: data.map(JSON.stringify)
         });
-        var interceptor = new mockstream.MockTransformer();
-        var converter = new transformer.MemoryStream(datameta);
+        interceptor = new mockstream.MockTransformer();
+        converter = new transformer.MemoryStream(datameta);
+      });
+
+      afterEach(function () {
+        reader = null;
+        interceptor = null;
+        converter = null;
+      });
+
+      it('Add meta information in `meta` property', function (done) {
+        interceptor.on('finish', function () {
+          expect(JSON.parse(interceptor._accum[0]).meta).to.eql({
+            measure: datameta.measure,
+            by: datameta.by
+          });
+          done();
+        });
+
+        reader.pipe(converter).pipe(interceptor);
+      });
+
+      it('Create dict of age keys with lms values', function (done) {
+        interceptor.on('finish', function () {
+          expect(JSON.parse(interceptor._accum[0]).xcoord).to.eql({
+            91: {
+              l: 0.3933,
+              m: 13.4779,
+              s: 0.07474
+            },
+            92: {
+              l: 0.3916,
+              m: 13.49,
+              s: 0.07476
+            }
+          });
+          done();
+        });
+
+        reader.pipe(converter).pipe(interceptor);
+      });
+
+      it('Create list of percentile values', function (done) {
+        interceptor.on('finish', function () {
+          expect(JSON.parse(interceptor._accum[0]).percentile).to.eql([
+            {
+              xcoord: 91,
+              p01: 10.579
+            },
+            {
+              xcoord: 92,
+              p01: 10.589
+            }
+          ]);
+
+          done();
+        });
+        reader.pipe(converter).pipe(interceptor);
+      });
+
+      it('Convert data into proper format', function (done) {
         var expectation = {
           meta: {
             measure: datameta.measure,
