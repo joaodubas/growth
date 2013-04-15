@@ -21,7 +21,7 @@
     "bmiload": "./bin/bmiload.js"
   },
   "script": {
-    "test": "node ./tests/runner.js -v -c'"
+    "test": "make test"
   },
   "engine": "node >= 0.10.0"
 }
