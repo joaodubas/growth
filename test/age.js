@@ -1,14 +1,10 @@
 var expect = require('expect.js');
 var age = require('../lib/age');
+var to_fixed = require('./helper/math.js').to_fixed;
 
 describe('Age manipulation', function () {
   var doa = new Date(2013, 11, 15),
       dob = new Date(1978, 11, 15);
-
-  function to_fixed(value, decimal) {
-    decimal = !isNaN(decimal) ? decimal : 4;
-    return Number(Number.prototype.toFixed.call(value, decimal));
-  }
 
   it('Should get proper age in days', function () {
     expect(to_fixed(age.indays(doa, dob), 0)).to.equal(12784);
