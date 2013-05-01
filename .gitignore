@@ -2,3 +2,4 @@
 node_modules
 static
 lib/lms/db/*.json
+*.swp
