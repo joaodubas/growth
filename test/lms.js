@@ -53,7 +53,7 @@ describe('BoxCox functionality', function () {
         expect(function () {
           calc.measure(options);
         }).to.throwException(
-          'Z-score must be -3 <= z <= +3.'
+          /-3|\+3/
         );
       });
 
@@ -65,7 +65,7 @@ describe('BoxCox functionality', function () {
         expect(function () {
           calc.measure(options);
         }).to.throwException(
-          'Z-score must be -3 <= z <= +3.'
+          /-3|\+3/
         );
       });
     });
@@ -306,6 +306,51 @@ describe('BoxCox functionality', function () {
           ).to.eql(
             to_fixed(measure, 4)
           );
+          done();
+        });
+      });
+      it('Throw error for missing args in zscore', function (done) {
+        execution(function (data) {
+          var db = new LMS(JSON.parse(data));
+          expect(function () {
+            db.zscore({xvalue: age});
+          }).to.throwException(/measure|age/);
+          expect(function () {
+            db.zscore({measure: measure});
+          }).to.throwException(/measure|age/);
+          expect(function () {
+            db.zscore({});
+          }).to.throwException(/measure|age/);
+          done();
+        });
+      });
+      it('Throw error for missing args in percentile', function (done) {
+        execution(function (data) {
+          var db = new LMS(JSON.parse(data));
+          expect(function () {
+            db.percentile({xvalue: age});
+          }).to.throwException(/measure|age/);
+          expect(function () {
+            db.percentile({measure: measure});
+          }).to.throwException(/measure|age/);
+          expect(function () {
+            db.percentile({});
+          }).to.throwException(/measure|age/);
+          done();
+        });
+      });
+      it('Throw error for missing args in centile', function (done) {
+        execution(function (data) {
+          var db = new LMS(JSON.parse(data));
+          expect(function () {
+            db.centile({zscore: zscore});
+          }).to.throwException(/zscore|age/);
+          expect(function () {
+            db.centile({age: age});
+          }).to.throwException(/zscore|age/);
+          expect(function () {
+            db.centile({});
+          }).to.throwException(/zscore|age/);
           done();
         });
       });
