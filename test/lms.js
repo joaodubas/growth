@@ -321,6 +321,9 @@ describe('BoxCox functionality', function () {
           expect(function () {
             db.zscore({});
           }).to.throwException(/measure|age/);
+          expect(function () {
+            db.zscore();
+          }).to.throwException(/measure|age/);
           done();
         });
       });
@@ -336,6 +339,9 @@ describe('BoxCox functionality', function () {
           expect(function () {
             db.percentile({});
           }).to.throwException(/measure|age/);
+          expect(function () {
+            db.percentile();
+          }).to.throwException(/measure|age/);
           done();
         });
       });
@@ -350,6 +356,9 @@ describe('BoxCox functionality', function () {
           }).to.throwException(/zscore|age/);
           expect(function () {
             db.centile({});
+          }).to.throwException(/zscore|age/);
+          expect(function () {
+            db.centile();
           }).to.throwException(/zscore|age/);
           done();
         });
