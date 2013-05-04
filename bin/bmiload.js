@@ -91,6 +91,19 @@ var filenames = {
         from: 'acfa_girls_p_exp',
         to: 'child_female_c_upper_arm_for_age',
         key: 'age',
+        measure: constants.CIRCUNFERENCE,
+        by: constants.AGEDAY
+      },
+      {
+        from: 'hcfa_boys_p_exp',
+        to: 'child_male_c_head_for_age',
+        key: 'age',
+        measure: constants.CIRCUNFERENCE,
+        by: constants.AGEDAY
+      },
+      {
+        from: 'hcfa_girls_p_exp',
+        to: 'child_female_c_head_for_age',
         key: 'age',
         measure: constants.CIRCUNFERENCE,
         by: constants.AGEDAY
