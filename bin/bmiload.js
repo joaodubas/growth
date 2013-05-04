@@ -110,14 +110,14 @@ var filenames = {
       },
       {
         from: 'tsfa_boys_p_exp',
-        to: 'child_male_triceps_skinfod_for_age',
+        to: 'child_male_triceps_skinfold_for_age',
         key: 'age',
         measure: constants.SKINFOLD,
         by: constants.AGEDAY
       },
       {
         from: 'tsfa_girls_p_exp',
-        to: 'child_female_triceps_skinfod_for_age',
+        to: 'child_female_triceps_skinfold_for_age',
         key: 'age',
         measure: constants.SKINFOLD,
         by: constants.AGEDAY
