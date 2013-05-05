@@ -7,6 +7,7 @@ var parser = require('../lib/lms/stream.js');
 var transformer = require('../lib/lms/adapter.js');
 var constants = require('../lib/lms/constants.js');
 var LMS = require('../lib/lms/data.js');
+var DB = require('../lib/lms/index.js');
 
 describe('BoxCox functionality', function () {
   describe('Conversions between z-score and measure', function () {
@@ -365,4 +366,39 @@ describe('BoxCox functionality', function () {
       });
     });
   });
+  describe('Database access', function () {
+    it('Should have two age groups', function () {
+      expect(DB).to.have.keys(['child', 'young']);
+    });
+    it('Should have two genders', function () {
+      expect(DB.child).to.have.keys(['female', 'male']);
+      expect(DB.young).to.have.keys(['female', 'male']);
+    });
+    it('Should have all available measures', function () {
+      var childMeasures = [
+        'weight_for_age',
+        'weight_for_length',
+        'weight_for_height',
+        'length_height_for_age',
+        'bmi_for_age',
+        'c_upper_arm_for_age',
+        'c_head_for_age',
+        'sk_triceps_for_age',
+        'sk_subscapular_for_age'
+      ];
+      var youngMeasures = [
+        'weight_for_age',
+        'height_for_age',
+        'bmi_for_age'
+      ];
+      expect(DB.child.female).to.have.keys(childMeasures);
+      expect(DB.child.male).to.have.keys(childMeasures);
+      expect(DB.young.female).to.have.keys(youngMeasures);
+      expect(DB.young.male).to.have.keys(youngMeasures);
+    });
+    it('Should implement LMS data interface', function () {
+      expect(DB.child.female.bmi_for_age).to.be.a(LMS);
+    });
+  });
 });
+
