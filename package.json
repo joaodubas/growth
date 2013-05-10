@@ -1,10 +1,11 @@
 {
   "name": "growth",
   "version": "0.0.1",
-  "description": "Growth calculation/classification, based on WHO recomendations.",
+  "description": "Growth calculation, based on WHO recomendations.",
   "tags": [
     "growth",
     "who",
+    "body mass index",
     "bmi",
     "anthropometry"
   ],
@@ -20,7 +21,8 @@
   "bin": {
     "bmiload": "./bin/bmiload.js"
   },
-  "script": {
+  "scripts": {
+    "prepublish": "node ./bin/bmiload.js",
     "test": "make test"
   },
   "engine": "node >= 0.10.0"
