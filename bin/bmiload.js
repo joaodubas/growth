@@ -188,17 +188,46 @@ var filenames = {
   }
 };
 
+var parserOptions = {delimiter: '\t', newline: '\n'};
+
+function handleError(err) {
+  process.stderr.write(err);
+  process.exit(1);
+}
+
+function showProcess() {
+  process.stdout.clearLine();
+  process.stdout.cursorTo(0);
+  process.stdout.write(this.proc + ': ' + this.filename);
+}
+
+process.stdout.write('Converting data files.');
 Object.keys(filenames).forEach(function (key) {
   var info = filenames[key];
   info.files.forEach(function (files) {
-    var dbfile = fs.createReadStream(path.join(info.localdir, files.from + '.txt')),
-        lmsparser = parser({delimiter: '\t', newline: '\n'}),
+    var orig = path.join(info.localdir, files.from + '.txt');
+    var dest = path.join(info.todir, files.to + '.json');
+    var dbfile = fs.createReadStream(orig),
+        lmsparser = parser(parserOptions),
         lmsformater = formater({
           key: files.key,
           measure: files.measure,
           by: files.by
         }),
-        dbjson = fs.createWriteStream(path.join(info.todir, files.to + '.json'));
+        dbjson = fs.createWriteStream(dest);
+    
+    dbfile.on('error', handleError);
+    dbfile.once('readable', showProcess.bind({
+      filename: files.from,
+      proc: 'start'
+    }));
+    lmsparser.on('error', handleError);
+    lmsformater.on('error', handleError);
+    dbjson.on('error', handleError);
+    dbjson.on('finish', showProcess.bind({
+      filename: files.to,
+      proc: 'end'
+    }));
 
     dbfile.pipe(lmsparser).pipe(lmsformater).pipe(dbjson);
   });
