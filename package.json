@@ -12,7 +12,7 @@
   "author": "Joao Paulo Dubas <joao.dubas@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://repo.aval.io/growth.git"
+    "url": "https://github.com/joaodubas/growth.git"
   },
   "devDependencies": {
     "mocha": "1.9.x",
@@ -25,5 +25,6 @@
     "prepublish": "node ./bin/bmiload.js",
     "test": "make test"
   },
+  "license": "MIT",
   "engine": "node >= 0.10.0"
 }
