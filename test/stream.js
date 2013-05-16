@@ -1,11 +1,10 @@
 var expect = require('expect.js');
-var mockstream = require('./helper/stream.js');
-var to_fixed = require('./helper/math.js').to_fixed;
+var mockstream = require('./helper/stream');
 
-var parser = require('../lib/lms/stream.js');
-var transformer = require('../lib/lms/adapter.js');
-var constants = require('../lib/lms/constants.js');
-var LMS = require('../lib/lms/data.js');
+var parser = require('../lib/lms/stream');
+var transformer = require('../lib/lms/adapter');
+var constants = require('../lib/lms/constants');
+var LMS = require('../lib/lms/data');
 
 describe('Data processing', function () {
   // lines from the upper arm circunference file for boys

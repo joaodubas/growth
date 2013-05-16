@@ -1,12 +1,12 @@
 var expect = require('expect.js');
-var mockstream = require('./helper/stream.js');
-var to_fixed = require('./helper/math.js').to_fixed;
+var mockstream = require('./helper/stream');
+var to_fixed = require('./helper/math').to_fixed;
 
-var parser = require('../lib/lms/stream.js');
-var transformer = require('../lib/lms/adapter.js');
-var constants = require('../lib/lms/constants.js');
-var LMS = require('../lib/lms/data.js');
-var DB = require('../lib/lms/index.js');
+var parser = require('../lib/lms/stream');
+var transformer = require('../lib/lms/adapter');
+var constants = require('../lib/lms/constants');
+var LMS = require('../lib/lms/data');
+var DB = require('../lib/lms/index');
 
 describe('Data access', function () {
   // lines from the upper arm circunference file for boys

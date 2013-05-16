@@ -1,7 +1,5 @@
 var expect = require('expect.js');
-var mockstream = require('./helper/stream.js');
-var to_fixed = require('./helper/math.js').to_fixed;
-
+var to_fixed = require('./helper/math').to_fixed;
 var calc = require('../lib/lms/calc.js');
 
 describe('Conversions between z-score and measure', function () {

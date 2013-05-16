@@ -1,6 +1,6 @@
 var expect = require('expect.js');
+var to_fixed = require('./helper/math').to_fixed;
 var snd = require('../lib/statistic');
-var to_fixed = require('./helper/math.js').to_fixed;
 
 describe('Calculations over the standard normal distribution', function () {
   var zscores = [-3, -2, -1, 0, 1, 2, 3],

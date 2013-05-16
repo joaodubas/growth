@@ -1,9 +1,7 @@
 var expect = require('expect.js');
-var mockstream = require('./helper/stream.js');
-var to_fixed = require('./helper/math.js').to_fixed;
 
-var LMS = require('../lib/lms/data.js');
-var DB = require('../lib/lms/index.js');
+var LMS = require('../lib/lms/data');
+var DB = require('../lib/lms/index');
 
 describe('Database access', function () {
   it('Should have two age groups', function () {

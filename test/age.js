@@ -1,6 +1,6 @@
 var expect = require('expect.js');
 var age = require('../lib/age');
-var to_fixed = require('./helper/math.js').to_fixed;
+var to_fixed = require('./helper/math').to_fixed;
 
 describe('Age manipulation', function () {
   var doa = new Date(2013, 11, 15),

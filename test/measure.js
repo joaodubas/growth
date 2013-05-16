@@ -1,6 +1,6 @@
 var expect = require('expect.js');
-var measure = require('../lib/measure/index.js').measure;
-var batchMeasure = require('../lib/measure/index.js').batchMeasure;
+var measure = require('../lib/measure').measure;
+var batchMeasure = require('../lib/measure').batchMeasure;
 
 describe('Measurement process', function () {
   describe('Process one measurement', function () {

@@ -1,5 +1,5 @@
 var fs = require('fs');
-var batchMeasure = require('../lib/measure/index.js').batchMeasure;
+var batchMeasure = require('../lib/measure').batchMeasure;
 
 var kwanzaKofi = [
   {
