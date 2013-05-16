@@ -5,6 +5,12 @@ var fs = require('fs'),
     formater = require('../lib/lms/adapter.js'),
     constants = require('../lib/lms/constants.js');
 
+// Map all filenames and paths, allowing the convertion between the WHO csv
+// files and the json files. It also configure the initial meta information to
+// each csv such as:
+// -- key: value that will be used to classify the limits
+// -- measure: details about the measured variable
+// -- by: details about the key value
 var filenames = {
   child: {
     localdir: path.join(__dirname, '..', 'lib', 'lms', 'db', 'bmi-child'),
