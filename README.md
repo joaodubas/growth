@@ -4,10 +4,95 @@
 
 ## Usage
 
+To install the library all you have to do is:
+
+```bash
+$ npm install growth
+```
+
+If you don't have node installed checkout this guide.
+
+After install the package, you can start using in the following way:
+
+```javascript
+var growth = require('growth');
+var measure = {
+    "gender": "male",
+    "dob": "2000/05/09",
+    "doa": "2000/10/12",
+    "weight": 4.80,
+    "height": 59.80,
+    "c_head": 38.90,
+    "c_upper_arm": 11.20,
+    "sk_triceps": 5.50,
+    "sk_subscapular": 4.60
+};
+
+function calculate(error, result) {
+    if (error) {
+        throw error;
+    }
+    console.log(result.result);
+}
+
+growth.measure(measure, calculate);
+```
+
+If you have a series of measurements, it's possible to process then in a
+batch:
+
+```javascript
+var growth = require('growth');
+var measures = [
+  {
+    "gender": "male",
+    "dob": "2000/05/09",
+    "doa": "2000/10/12",
+    "weight": 4.80,
+    "height": 59.80,
+    "c_head": 38.90,
+    "c_upper_arm": 11.20,
+    "sk_triceps": 5.50,
+    "sk_subscapular": 4.60
+  },
+  {
+    "gender": "male",
+    "dob": "2000/05/09",
+    "doa": "2000/12/12",
+    "weight": 5.50,
+    "height": 61.20,
+    "c_head": 40.30,
+    "c_upper_arm": 11.40,
+    "sk_triceps": 5.20,
+    "sk_subscapular": 4.40
+  }
+];
+
+function calculate(error, results) {
+    if (error) {
+        throw error;
+    }
+    results.forEach(function (result) {
+        console.log(result.result);
+    });
+}
+
+growth.batchMeasure(measures, calculate);
+```
+
 ## API
+
+### `growth#measure`
+
+### `growth#batchMeasure`
+
+### `growth#Measure`
+
+### Measure definition
 
 ## TODO
 
+* Add license info
 * Implement stream interface, something in the line of [levelUp][level-up]
 * How about implement:
     * [Istanbul][istanbul] for code coverage and
