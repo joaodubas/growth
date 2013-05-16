@@ -25,6 +25,7 @@
     "prepublish": "node ./bin/bmiload.js",
     "test": "make test"
   },
+  "main": "./lib/measure",
   "license": "MIT",
   "engine": "node >= 0.10.0"
 }
