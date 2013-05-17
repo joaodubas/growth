@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 var fs = require('fs'),
     path = require('path'),
-    parser = require('../lib/lms/stream'),
-    formater = require('../lib/lms/adapter'),
-    constants = require('../lib/lms/constants');
+    parser = require('../lib/data/stream'),
+    formater = require('../lib/data/adapter'),
+    constants = require('../lib/data/constants');
 
 // Map all filenames and paths, allowing the convertion between the WHO csv
 // files and the json files. It also configure the initial meta information to

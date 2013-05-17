@@ -1,9 +1,9 @@
 var expect = require('expect.js');
 var mockstream = require('./helper/stream');
 
-var parser = require('../lib/lms/stream');
-var transformer = require('../lib/lms/adapter');
-var constants = require('../lib/lms/constants');
+var parser = require('../lib/data/stream');
+var transformer = require('../lib/data/adapter');
+var constants = require('../lib/data/constants');
 var LMS = require('../lib/lms/data');
 
 describe('Data processing', function () {

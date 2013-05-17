@@ -1,6 +1,6 @@
 # Directory
 node_modules
 static
-lib/lms/db/*.json
+lib/data/db/*.json
 *.swp
 .c9revisions
