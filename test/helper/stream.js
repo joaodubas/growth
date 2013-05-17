@@ -1,5 +1,9 @@
 var stream = require('stream');
 
+if (!stream.hasOwnProperty('Readable') || !stream.hasOwnProperty('Transform')) {
+    stream = require('readable-stream');
+}
+
 function MockReader(options) {
   options = options || {};
   if (!options.encoding) {
