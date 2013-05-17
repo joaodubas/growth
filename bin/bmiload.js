@@ -13,8 +13,8 @@ var fs = require('fs'),
 // -- by: details about the key value
 var filenames = {
   child: {
-    localdir: path.join(__dirname, '..', 'lib', 'lms', 'db', 'bmi-child'),
-    todir: path.join(__dirname, '..', 'lib', 'lms', 'db'),
+    localdir: path.join(__dirname, '..', 'lib', 'data', 'db', 'bmi-child'),
+    todir: path.join(__dirname, '..', 'lib', 'data', 'db'),
     files: [
       {
         from: 'lhfa_boys_p_exp',
@@ -145,8 +145,8 @@ var filenames = {
     ]
   },
   young: {
-    localdir: path.join(__dirname, '..', 'lib', 'lms', 'db', 'bmi-young'),
-    todir: path.join(__dirname, '..', 'lib', 'lms', 'db'),
+    localdir: path.join(__dirname, '..', 'lib', 'data', 'db', 'bmi-young'),
+    todir: path.join(__dirname, '..', 'lib', 'data', 'db'),
     files: [
       {
         from: 'bmi_boys_perc_WHO2007_exp',
